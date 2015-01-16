@@ -12,7 +12,8 @@ gulp.task('clean', function (done) {
 
 gulp.task('devhtml', function(){
   return gulp.src('src/**/*.html')
-    .pipe(gulp.dest('dev'));
+    .pipe(gulp.dest('dev'))
+    .pipe($.connect.reload());;
 });
 
 gulp.task('devjs', function(){
@@ -79,7 +80,7 @@ gulp.task('styles', ['injector:css:preprocessor'], function () {
     .pipe(gulp.dest('dev/app/'));
 });
 
-gulp.task('bowerinject', ['injectcss'], function () {
+gulp.task('bowerinject', ['injectcss', 'bowercopy'], function () {
 
   return gulp.src('dev/index.html')
     .pipe($.wiredep.stream({
@@ -87,6 +88,11 @@ gulp.task('bowerinject', ['injectcss'], function () {
       exclude: [/foundation\.js/, /foundation\.css/, /bootstrap\.css/, /foundation\.css/]
     }))
     .pipe(gulp.dest('dev'));
+});
+
+gulp.task('bowercopy', function () {
+  return gulp.src(['bower_components/**/*.js', 'bower_components/**/*.css'])
+    .pipe(gulp.dest('dev/bower_components/'));
 });
 
 gulp.task('webserver', function(){
@@ -101,7 +107,9 @@ gulp.task('watch', function(){
   gulp.watch([
     'src/**/*.js',
     '!src/**/*.spec.js',
-    '!src/**/*.mock.js'], ['devjs']);
+    '!src/**/*.mock.js'], ['dev']);
+  gulp.watch([
+    'src/**/*.html'], ['dev']);
 });
 
 gulp.task('dev', ['devhtml', 'injectjs', 'injectcss', 'bowerinject']);
