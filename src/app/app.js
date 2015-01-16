@@ -5,6 +5,6 @@ function AppConfig ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
   }
 
-angular.module('gfa', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ui.router', 'mm.foundation', 'home'])
+angular.module('gfa', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ui.router', 'mm.foundation', 'homeModule', 'tasksModule', 'detailsModule'])
   .config(AppConfig)
 ;

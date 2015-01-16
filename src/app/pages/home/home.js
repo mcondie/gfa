@@ -15,7 +15,7 @@ function HomeConfig($stateProvider){
     });
 }
 
-angular.module('home', ['ui.router'])
+angular.module('homeModule', ['ui.router'])
   .controller("HomeController", HomeController)
   .config(HomeConfig)
 ;
