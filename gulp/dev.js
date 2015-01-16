@@ -16,6 +16,12 @@ gulp.task('devhtml', function(){
     .pipe($.connect.reload());;
 });
 
+gulp.task('devtraceur', ['devhtml'], function(){
+  return gulp.src('dev/index.html')
+    .pipe($.replace('<!-- traceur -->', '<script src="https://google.github.io/traceur-compiler/bin/traceur.js"></script><script src="https://google.github.io/traceur-compiler/src/bootstrap.js"></script><script>traceur.options.experimental = true;</script>'))
+    .pipe(gulp.dest('dev/'));
+})
+
 gulp.task('devjs', function(){
   return gulp.src([
     'src/**/*.js',
@@ -25,7 +31,7 @@ gulp.task('devjs', function(){
     .pipe($.connect.reload());;
 });
 
-gulp.task('injectjs', ['devjs', 'devhtml'], function () {
+gulp.task('injectjs', ['devjs', 'devhtml', 'devtraceur'], function () {
   return gulp.src(['dev/index.html'])
     .pipe($.inject(gulp.src([
       'app/**/*.js',
@@ -112,6 +118,6 @@ gulp.task('watch', function(){
     'src/**/*.html'], ['dev']);
 });
 
-gulp.task('dev', ['devhtml', 'injectjs', 'injectcss', 'bowerinject']);
+gulp.task('dev', ['devhtml', 'devtraceur', 'injectjs', 'injectcss', 'bowerinject']);
 
 gulp.task('serve', ['dev', 'webserver', 'watch']);
