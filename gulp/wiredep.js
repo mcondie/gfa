@@ -6,10 +6,10 @@ var gulp = require('gulp');
 gulp.task('wiredep', function () {
   var wiredep = require('wiredep').stream;
 
-  return gulp.src('src/index.html')
+  return gulp.src('dev/index.html')
     .pipe(wiredep({
       directory: 'bower_components',
       exclude: [/foundation\.js/, /foundation\.css/, /bootstrap\.css/, /foundation\.css/]
     }))
-    .pipe(gulp.dest('src'));
+    .pipe(gulp.dest('dev'));
 });
