@@ -17,12 +17,13 @@
     "jquery": "~2.1.3",
     "angular": "~1.3.9",
     "angular-ui-router": "~0.2.13",
-    "foundation": "~5.5.0",
-    "angular-foundation": "~0.5.1",
+    
+    
     "angular-animate": "~1.3.9",
     "angular-cookies": "~1.3.9",
     "angular-touch": "~1.3.9",
     "angular-sanitize": "~1.3.9",
-    "angular-mocks": "~1.3.9"
+    "angular-mocks": "~1.3.9",
+    "foundation-apps": "~1.0.2"
   }
 }

@@ -25,10 +25,12 @@ gulp.task('devjs', function(){
     .pipe($.connect.reload());;
 });
 
-gulp.task('injectjs', ['devjs', 'devhtml'], function () {
+gulp.task('injectjs', ['devjs', 'devhtml','bowercopy'], function () {
   return gulp.src(['dev/index.html'])
     .pipe($.inject(gulp.src([
       'app/**/*.js',
+      'bower_components/foundation-apps/js/**/*.js',
+      '!bower_components/foundation-apps/js/angular/app.js',
       '!app/**/*.spec.js',
       '!app/**/*.mock.js'
     ], {cwd: 'dev'}), {
@@ -85,7 +87,7 @@ gulp.task('bowerinject', ['injectcss', 'bowercopy'], function () {
   return gulp.src('dev/index.html')
     .pipe($.wiredep.stream({
       directory: 'bower_components',
-      exclude: [/foundation\.js/, /foundation\.css/, /bootstrap\.css/, /foundation\.css/]
+      exclude: [/app\.js/, /foundation\.css/, /bootstrap\.css/, /foundation\.css/]
     }))
     .pipe(gulp.dest('dev'));
 });
