@@ -1,8 +1,14 @@
 'use strict';
 /*jshint esnext: true */
 
-function TasksController () {
+TasksController.$inject = ['tasks'];
+
+function TasksController (tasks) {
+    var ctrl = this;
     
+    _.extend(ctrl, {
+    	tasks: tasks
+    });
 }
 
 function TasksConfig($stateProvider){
@@ -11,7 +17,12 @@ function TasksConfig($stateProvider){
       url: "/tasks",
       templateUrl: "/app/pages/tasks/tasks.html",
       controller: TasksController,
-      controllerAs: "ctrl"
+      controllerAs: "ctrl",
+      resolve: {
+      	tasks: function(taskService){
+      		return taskService.getTasks();
+      	}
+      }
     });
 }
 

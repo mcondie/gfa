@@ -1,2 +1,5 @@
-tasks.html
-<div ui-view></div>
+<div ui-view>
+	<div ng-repeat="task in ctrl.tasks">
+		{{task.name}}
+	</div>
+</div>
