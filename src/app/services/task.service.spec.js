@@ -3,7 +3,7 @@ expect = chai.expect,
 should = chai.should();
 
 describe('TaskService.GetTasks', function(){
-	var $httpBackend, taskService;
+	var $httpBackend, taskService, $log;
 	var baseUrl = "http://someUrl.com";
 
 	beforeEach(module('taskServiceModule'));
@@ -14,6 +14,7 @@ describe('TaskService.GetTasks', function(){
 
 	beforeEach(inject(function($injector){
 		$httpBackend = $injector.get('$httpBackend');
+		$log = $injector.get('$log');
 
 		getTasksHandler = $httpBackend.when('GET', baseUrl + '/tasks')
 		.respond({data:[{name:'A Name'}]})
@@ -30,7 +31,11 @@ describe('TaskService.GetTasks', function(){
 
 	it('should call GET /tasks', function(){
 		$httpBackend.expectGET(baseUrl + '/tasks');
-		taskService.getTasks();
+		taskService.getTasks().then(function(result){
+			expect(result.data.length).to.equal(1);
+			expect(result.data[0].name).to.equal('A Name');
+		});
 		$httpBackend.flush();
+		expect($log.debug.logs.length).to.equal(1);
 	});
 });

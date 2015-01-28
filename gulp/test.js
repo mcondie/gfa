@@ -8,6 +8,7 @@ gulp.task('test', function (done) {
   $.karma.server.start({
     configFile: __dirname + '/../karma.conf.js',
     singleRun: true,
+    logLevel: 'info',
     browsers: ['PhantomJS']
   }, done);
 });
